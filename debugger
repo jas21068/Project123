@@ -8,7 +8,9 @@ SSH_PASS="Jaskirat2512+"
 INPUT_FILE="commands.txt"
 SSH_COMMANDS=$(tr '\n' '; ' < "$INPUT_FILE")
 OUTPUT_FILE="/logs_junos/log_output.txt"
-
+BGP_OUTPUT="/logs_junos/BGP.txt"
+NEW_BGP_OUTPUT="/logs_junos/BGP_NEW.txt"
+OG_TEXT="/logs_junos/OG.txt"
 # Function to check ping and handle failures
 monitor_ping() {
     local ping_fail_count=0
@@ -25,6 +27,7 @@ monitor_ping() {
         if [ $ping_fail_count -ge 1 ]; then
             echo "$(date): 3 consecutive pings failed, SSHing to $TARGET_IP"
             ssh_run_commands
+           
             ping_fail_count=0
         fi
 
@@ -38,10 +41,18 @@ ssh_run_commands() {
 
     if [ $? -eq 0 ]; then
         echo "$(date): Commands executed successfully, output saved to $OUTPUT_FILE"
+	echo "reading the file and getting BGP routes"
+	grep -i "BGP" "$OUTPUT_FILE" > $BGP_OUTPUT
+        awk {'print $1'} "$BGP_OUTPUT" > $NEW_BGP_OUTPUT
+	echo "Got the routes and comparing now and printing if a route is missing"
+	diff "$NEW_BGP_OUTPUT" "$OG_TEXT"	
+	echo "Adding this route as a static route to temp fix the issue"
     else
+
         echo "$(date): Failed to execute commands"
     fi
 }
 
 # Start monitoring pings
 monitor_ping
+ 
