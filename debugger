@@ -1,41 +1,47 @@
 #!/bin/bash
 
-# Configuration
+# Define the target host and the SSH credentials
 read -p "Enter the target IP to ping: " TARGET_IP
-read -p "Enter the command to run on the remote device: " SSH_COMMAND
-read -p "Enter the number of consecutive ping failures before SSH: " FAIL_THRESHOLD
+TARGET_HOST="172.16.1.101"
+SSH_USER="admin"
+SSH_PASS="Jaskirat2512+"
+INPUT_FILE="commands.txt"
+SSH_COMMANDS=$(tr '\n' '; ' < "$INPUT_FILE")
+OUTPUT_FILE="/logs_junos/log_output.txt"
 
+# Function to check ping and handle failures
+monitor_ping() {
+    local ping_fail_count=0
 
-# Initialize counters
-fail_count=0
+    while true; do
+        if ping -c 1 $TARGET_IP &> /dev/null; then
+            echo "$(date): Ping to $TARGET_IP successful"
+            ping_fail_count=0
+        else
+            echo "$(date): Ping to $TARGET_IP failed"
+            ((ping_fail_count++))
+        fi
 
-# Function to perform SSH and collect output
-collect_output() {
-    sshpass -p "Jaskirat2512+" ssh root@172.16.1.101 -t cli "$SSH_COMMAND" > /logs_junos/log.txt
+        if [ $ping_fail_count -ge 1 ]; then
+            echo "$(date): 3 consecutive pings failed, SSHing to $TARGET_IP"
+            ssh_run_commands
+            ping_fail_count=0
+        fi
+
+        #sleep 5 # Interval between pings
+    done
 }
 
-# Infinite loop to constantly ping
-while true; do
-    # Ping the target IP
-    ping -c 1 $TARGET_IP > /dev/null 2>&1
+# Function to SSH to the target host and run commands
+ssh_run_commands() {
+    sshpass -p $SSH_PASS ssh $SSH_USER@$TARGET_HOST  "$SSH_COMMANDS" > $OUTPUT_FILE 2>&1
 
-    if [ $? -ne 0 ]; then
-        # Ping failed
-        ((fail_count++))
-        echo "Ping to $TARGET_IP failed ($fail_count/$FAIL_THRESHOLD)"
-
-        if [ $fail_count -ge $FAIL_THRESHOLD ]; then
-            echo "Ping failed $FAIL_THRESHOLD times, collecting output..."
-            collect_output
-            # Reset fail count after collecting output
-            fail_count=0
-        fi
+    if [ $? -eq 0 ]; then
+        echo "$(date): Commands executed successfully, output saved to $OUTPUT_FILE"
     else
-        # Ping succeeded, reset fail count
-        fail_count=0
-        echo "Ping to $TARGET_IP succeeded."
+        echo "$(date): Failed to execute commands"
     fi
+}
 
-    # Wait for a while before the next ping
-    sleep 5
-done
+# Start monitoring pings
+monitor_ping

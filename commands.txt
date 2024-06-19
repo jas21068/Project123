@@ -1,0 +1,3 @@
+
+show system processes extensive | no-more
+show route | no-more
