@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 # Define the target host and the SSH credentials
@@ -13,8 +14,7 @@ argument=$1
 TARGET_HOST="172.16.1.101"
 SSH_USER="admin"
 SSH_PASS="Jaskirat2512+"
-INPUT_FILE="commands.txt"
-SSH_COMMANDS=$(tr '\n' '; ' < "$INPUT_FILE")
+SSH_COMMANDS="show route | no-more; show system processes extensive | no-more"
 OUTPUT_FILE="/logs_junos/log_output.txt"
 BGP_OUTPUT="/logs_junos/BGP.txt"
 NEW_BGP_OUTPUT="/logs_junos/BGP_NEW.txt"
@@ -46,8 +46,8 @@ monitor_ping() {
 
 # Function to SSH to the target host and run commands
 ssh_run_commands() {
-    sshpass -p $SSH_PASS ssh $SSH_USER@$TARGET_HOST  "$SSH_COMMANDS" > $OUTPUT_FILE 2>&1
-
+    sshpass -p $SSH_PASS ssh $SSH_USER@$TARGET_HOST  "$SSH_COMMANDS" > $OUTPUT_FILE 
+cat $OUTPUT_FILE
     if [ $? -eq 0 ]; then
         echo "$(date): Commands executed successfully, output saved to $OUTPUT_FILE"
 	echo "reading the file and getting BGP routes"
@@ -56,6 +56,8 @@ ssh_run_commands() {
 	echo "Got the routes and comparing now and printing if a route is missing"
 	diff "$NEW_BGP_OUTPUT" "$OG_TEXT"	
 	echo "Adding this route as a static route to temp fix the issue"
+#	rm /logs_junos/log*
+#	rm /logs_junos/BGP*
     else
 
         echo "$(date): Failed to execute commands"
@@ -65,3 +67,4 @@ ssh_run_commands() {
 # Start monitoring pings
 monitor_ping
  
+
