@@ -1,0 +1,2 @@
+get router info routing-table all
+get router info bgp summary 

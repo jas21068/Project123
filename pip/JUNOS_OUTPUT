@@ -1,0 +1,99 @@
+--- JUNOS 15.1X49-D80.4 built 2017-03-23 15:21:36 UTC
+admin> show route | no-more 
+
+inet.0: 30 destinations, 31 routes (30 active, 0 holddown, 0 hidden)
++ = Active Route, - = Last Active, * = Both
+
+0.0.0.0/0          *[Access-internal/12] 2d 16:10:50
+                    > to 172.16.1.1 via fxp0.0
+1.1.2.1/32         *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+10.0.0.0/24        *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+10.233.0.0/24      *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+10.233.233.0/24    *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+10.253.240.0/20    *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+11.11.11.11/32     *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+34.34.34.32/29     *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+55.55.55.55/32     *[Static/5] 2d 16:10:48
+                    > to 172.16.1.102 via fxp0.0
+169.254.160.170/32 *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+169.254.177.2/32   *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+169.254.178.2/32   *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+172.16.1.0/24      *[Direct/0] 2d 16:10:51
+                    > via fxp0.0
+                    [BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+172.16.1.101/32    *[Local/0] 2d 16:10:51
+                      Local via fxp0.0
+172.16.7.0/24      *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+172.16.9.0/24      *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+172.16.55.0/24     *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+172.16.89.0/24     *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+172.16.241.2/32    *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+192.164.1.0/24     *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+192.168.1.0/24     *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+192.168.3.0/24     *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+192.168.7.0/24     *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+192.168.49.0/24    *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+192.168.101.0/24   *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+192.168.102.0/24   *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+192.168.103.0/24   *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+192.168.104.0/24   *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+192.168.133.2/32   *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+192.168.144.0/24   *[BGP/170] 1d 20:27:34, localpref 100
+                      AS path: 65001 ?, validation-state: unverified
+                    > to 172.16.1.1 via fxp0.0
+
+admin> 
+
+admin> 

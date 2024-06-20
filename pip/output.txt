@@ -1,0 +1,5 @@
+<class 'paramiko.client.SSHClient'>
+What is the ip
+What is the port
+What is the username
+What is the password

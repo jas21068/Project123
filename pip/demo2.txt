@@ -1,0 +1,2 @@
+get sys status
+diag hardware sysinfo memory

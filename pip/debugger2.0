@@ -1,0 +1,35 @@
+#!/bin/bash
+
+read -p "Enter the target IP to ping: " TARGET_IP
+
+
+# Function to check ping and handle failures
+monitor_ping() {
+    local ping_fail_count=0
+
+    while true; do
+        if ping -c 1 $TARGET_IP &> /dev/null; then
+            echo "$(date): Ping to $TARGET_IP successful"
+            ping_fail_count=0
+        else
+            echo "$(date): Ping to $TARGET_IP failed"
+            ((ping_fail_count++))
+        fi
+
+        if [ $ping_fail_count -ge 3 ]; then
+            echo "$(date): 3 consecutive pings failed, SSHing to $TARGET_IP"
+            ssh_run_commands
+            ping_fail_count=0
+        fi
+
+        sleep 5 # Interval between pings
+    done
+}
+
+# Function to SSH to the target host and run commands
+ssh_run_commands() {
+   python3 collector.py
+}
+
+# Start monitoring pings
+monitor_ping
