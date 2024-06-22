@@ -2,3 +2,4 @@ new file
 stash test
 remote added text
 fetch testing
+commit 2 rebase
