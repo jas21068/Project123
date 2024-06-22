@@ -1,9 +1,0 @@
-new file
-stash test
-remote added text
-fetch testing
-<<<<<<< HEAD
-commit 2 rebase
-=======
-rebase1
->>>>>>> 847b3ce (local commit 1 rebase)
